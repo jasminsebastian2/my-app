@@ -339,7 +339,6 @@ const TodoList = () => {
                   size="small"
                   value={newItemTexts[listIndex]}
                   onChange={(e) => {
-                    // Update the newItemTexts state for the current list
                     const updatedItemTexts = [...newItemTexts];
                     updatedItemTexts[listIndex] = e.target.value;
                     setNewItemTexts(updatedItemTexts);
