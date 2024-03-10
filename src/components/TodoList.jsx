@@ -21,7 +21,7 @@ import Header from './Header';
 
 const TodoList = () => {
   const [todoLists, setTodoLists] = useState([]);
-  const [newItemText, setNewItemText] = useState('');
+  const [newItemTexts, setNewItemTexts] = useState([]);
   const [editingListIndex, setEditingListIndex] = useState(null);
   const [editingItemIndex, setEditingItemIndex] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -58,6 +58,8 @@ const TodoList = () => {
 
     setTodoLists([...todoLists, newList]);
 
+    setNewItemTexts([...newItemTexts, '']);
+
     setNewListName('');
     setNewListItems('');
     setModalOpen(false);
@@ -86,11 +88,15 @@ const TodoList = () => {
     setTodoLists((prevLists) =>
       prevLists.map((list, index) =>
         index === listIndex
-          ? { ...list, items: [...list.items, { text: newItemText, completed: false }] }
+          ? { ...list, items: [...list.items, { text: newItemTexts[listIndex], completed: false }] }
           : list
       )
     );
-    setNewItemText('');
+
+
+    const updatedItemTexts = [...newItemTexts];
+    updatedItemTexts[listIndex] = '';
+    setNewItemTexts(updatedItemTexts);
   };
 
   const handleDeleteItem = (listIndex, itemIndex) => {
@@ -237,7 +243,6 @@ const TodoList = () => {
         </Box>
       </Modal>
 
-
       <Grid container spacing={2}>
         {todoLists.map((list, listIndex) => (
           <Grid item key={listIndex} xs={12} sm={6} md={4} lg={3}>
@@ -332,8 +337,13 @@ const TodoList = () => {
                   variant="outlined"
                   fullWidth
                   size="small"
-                  value={newItemText}
-                  onChange={(e) => setNewItemText(e.target.value)}
+                  value={newItemTexts[listIndex]}
+                  onChange={(e) => {
+                    // Update the newItemTexts state for the current list
+                    const updatedItemTexts = [...newItemTexts];
+                    updatedItemTexts[listIndex] = e.target.value;
+                    setNewItemTexts(updatedItemTexts);
+                  }}
                   InputProps={{
                     endAdornment: (
                       <Button
