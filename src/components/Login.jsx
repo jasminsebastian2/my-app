@@ -16,7 +16,6 @@ const Login = () => {
 
     
     if (credentials.username === 'project' && credentials.password === '123') {
-      console.log('Login successful');
       setError('');
       setCredentials({ username: '', password: '' });
       navigate('/todolist');
