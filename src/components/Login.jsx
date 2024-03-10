@@ -14,11 +14,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!credentials.username || !credentials.password) {
-      setError('Please enter both username and password.');
-      return;
-    }
-
+    
     if (credentials.username === 'project' && credentials.password === '123') {
       console.log('Login successful');
       setError('');
@@ -46,8 +42,6 @@ const Login = () => {
             name="username"
             value={credentials.username}
             onChange={handleChange}
-            error={error && !credentials.username}
-            helperText={error && !credentials.username ? error : ' '}
             style={{ marginBottom: '12px' }}
             inputProps={{ style: { padding: '10px' } }}
           />
@@ -62,8 +56,6 @@ const Login = () => {
             name="password"
             value={credentials.password}
             onChange={handleChange}
-            error={error && !credentials.password}
-            helperText={error && !credentials.password ? error : ' '}
             style={{ marginBottom: '12px' }}
             inputProps={{ style: { padding: '10px' } }}
           />
